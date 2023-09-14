@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="207" id="KGk-i7-Jjw" customClass="PokemonCellTableViewCell" customModule="Pokedex_v2" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="275" height="207"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="275" height="207"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7cN-It-2X7">
+                        <rect key="frame" x="10" y="0.0" width="255" height="202"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PJA-6B-nk5">
+                                <rect key="frame" x="0.0" y="0.0" width="255" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="pQm-yO-8Xh"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bulbasaur" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLS-il-Pm7">
+                                <rect key="frame" x="0.0" y="125" width="255" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ODQ-Km-zeK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ydr-Y1-pwP">
+                                <rect key="frame" x="0.0" y="180" width="255" height="22"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Defense: 78" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VN5-fc-SVZ" userLabel="Pokemon Defense">
+                                        <rect key="frame" x="0.0" y="0.0" width="122.66666666666667" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attack: 59" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDN-jI-0ng">
+                                        <rect key="frame" x="132.66666666666666" y="0.0" width="122.33333333333334" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7cN-It-2X7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="1MR-sY-ddL"/>
+                    <constraint firstItem="7cN-It-2X7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="6hU-gQ-IQ8"/>
+                    <constraint firstAttribute="bottom" secondItem="7cN-It-2X7" secondAttribute="bottom" constant="5" id="abn-5N-SgB"/>
+                    <constraint firstAttribute="trailing" secondItem="7cN-It-2X7" secondAttribute="trailing" constant="10" id="uG2-L5-9Ec"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="pokemonAttack" destination="bDN-jI-0ng" id="EZR-eJ-Z4t"/>
+                <outlet property="pokemonDefense" destination="VN5-fc-SVZ" id="IOS-Bx-kdB"/>
+                <outlet property="pokemonImage" destination="PJA-6B-nk5" id="MLE-aV-gko"/>
+                <outlet property="pokemonName" destination="RLS-il-Pm7" id="ai4-Ba-yzi"/>
+            </connections>
+            <point key="canvasLocation" x="176.33587786259542" y="82.74647887323944"/>
+        </tableViewCell>
+    </objects>
+</document>
