@@ -19,6 +19,7 @@ class PokemonListViewController: UIViewController {
     var pokemonManager = PokemonManager()
     var pokemons: [Pokemon] = []
     var pokemonSelected: Pokemon?
+    var pokemonsFiltered: [Pokemon] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,11 +27,14 @@ class PokemonListViewController: UIViewController {
         tableView.register(UINib(nibName: "PokemonCellTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         
         pokemonManager.delegate = self
+        searchBar.delegate = self
         
         tableView.dataSource = self
         tableView.delegate = self
         
         pokemonManager.showPokemon()
+        
+        pokemonsFiltered = pokemons
     }
 
 
@@ -41,6 +45,7 @@ extension PokemonListViewController: pokemonManagerDelegate {
         pokemons = list
         
         DispatchQueue.main.async {
+            self.pokemonsFiltered = self.pokemons
             self.tableView.reloadData()
         }
     }
@@ -48,19 +53,37 @@ extension PokemonListViewController: pokemonManagerDelegate {
     
 }
 
+extension PokemonListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        pokemonsFiltered = []
+        
+        if searchText == "" {
+            pokemonsFiltered = pokemons
+        } else {
+            for poke in pokemons {
+                if poke.name.lowercased().contains(searchText.lowercased()) {
+                    pokemonsFiltered.append(poke)
+                }
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
+}
+
 extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokemons.count
+        return pokemonsFiltered.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PokemonCellTableViewCell
-        cell.pokemonName?.text = pokemons[indexPath.row].name
-        cell.pokemonAttack.text = "Attack: \(pokemons[indexPath.row].attack)"
-        cell.pokemonDefense.text = "Defense: \(pokemons[indexPath.row].defense)"
+        cell.pokemonName?.text = pokemonsFiltered[indexPath.row].name
+        cell.pokemonAttack.text = "Attack: \(pokemonsFiltered[indexPath.row].attack)"
+        cell.pokemonDefense.text = "Defense: \(pokemonsFiltered[indexPath.row].defense)"
         
-        if let urlString = pokemons[indexPath.row].imageUrl as? String {
+        if let urlString = pokemonsFiltered[indexPath.row].imageUrl as? String {
             if let imagenURL = URL(string: urlString) {
                 DispatchQueue.global().async {
                     guard let imageData = try? Data(contentsOf: imagenURL) else { return }
@@ -76,7 +99,8 @@ extension PokemonListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        pokemonSelected = pokemons[indexPath.row]
+        
+        pokemonSelected = pokemonsFiltered[indexPath.row]
         
         performSegue(withIdentifier: "showPokemonDetail", sender: self)
         

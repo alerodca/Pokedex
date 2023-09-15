@@ -24,12 +24,12 @@ struct PokemonManager {
             let task = session.dataTask(with: url) { data, response, error in
                 
                 if error != nil {
-                    print("Error al obtener datos, ERROR: \(error?.localizedDescription)")
+                    print("Error al obtener datos, ERROR: \(String(describing: error?.localizedDescription))")
                 }
                 
                 if let secureData = data?.parseData(quitarString: "null,") {
                     if let pokemonList = self.JSONParse(pokemonDates: secureData) {
-                        print("PokemonList: ", pokemonList)
+                        //print("PokemonList: ", pokemonList)
                         
                         delegate?.showPokemonList(list: pokemonList)
                     }

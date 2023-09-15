@@ -29,20 +29,37 @@ class PokemonDetailViewController: UIViewController {
         pokemonDescription.text = showPokemon?.description ?? ""
         pokemonAttack.text = "Attack: \(showPokemon!.attack)"
         pokemonDefense.text = "Defense: \(showPokemon!.defense)"
-        pokemonImage.loadFrom(URLAdress: showPokemon?.imageUrl ?? "")
+        pokemonImage.loadFrom(URLAddress: showPokemon?.imageUrl ?? "")
     }
 
 }
 
 extension UIImageView {
-    func loadFrom(URLAdress: String) {
-        guard let url = URL(string: URLAdress) else { return }
-        DispatchQueue.main.async { [weak self] in
-            if let imageData = try? Data(contentsOf: url) {
-                if let loadedImage = UIImage(data: imageData) {
+    
+    func loadFrom(URLAddress: String) {
+        guard let url = URL(string: URLAddress) else { return }
+        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, _, error) in
+            if let error = error {
+                print("Error al cargar la imagen desde la URL: \(error)")
+                return
+            }
+            if let data = data, let loadedImage = UIImage(data: data) {
+                DispatchQueue.main.async {
                     self?.image = loadedImage
                 }
             }
         }
+        task.resume()
     }
+    
+//    func loadFrom(URLAdress: String) {
+//        guard let url = URL(string: URLAdress) else { return }
+//        DispatchQueue.main.async { [weak self] in
+//            if let imageData = try? Data(contentsOf: url) {
+//                if let loadedImage = UIImage(data: imageData) {
+//                    self?.image = loadedImage
+//                }
+//            }
+//        }
+//    }
 }
